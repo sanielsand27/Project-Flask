@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% block title %}
+License List
+{% endblock %}
+
+
+{% block content %}
+
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">License List</h1>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active">Computer List</li>
+                            </ol>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+                <!-- TABLE: LATEST ORDERS -->
+            
+           
+                
+                <div class="row">
+                <div class="col-12 col-sm-8">
+                <div class="card card-primary card-outline card-outline-tabs">
+                <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Info</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">License</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Files</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">History</a>
+                </li>
+                </ul>
+                </div>
+                <div class="card-body">
+                <div class="tab-content" id="custom-tabs-one-tabContent">
+                <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <tr>
+                        <th style="width:30%">Name:</th>
+                        <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                        <th>Date:</th>
+                        <td>{{ asset.date.strftime('%A, %B %d, %Y')}}</td>
+                        </tr>
+                        <tr>
+                        <th>Year Subscription:</th>
+                        <td>{{ asset.year_subscription }}</td>
+                        </tr>
+                        <tr>
+                        <th>Expiration:</th>
+                        <td>{{ asset.expiration_date.strftime('%A, %B %d, %Y') }}</td>
+                        </tr>
+                        </table>
+                        </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <tr>
+                        <th style="width:30%">Name:</th>
+                        <td>{{ asset.name }}</td>
+                        </tr>
+                        <tr>
+                        <th>Date:</th>
+                        <td>{{ asset.date }}</td>
+                        </tr>
+                        <tr>
+                        <th>Year Subscription:</th>
+                        <td>{{ asset.year_subscription }}</td>
+                        </tr>
+                        <tr>
+                        <th>Expiration:</th>
+                        <td>{{ asset.expiration_date }}</td>
+                        </tr>
+                        </table>
+                        </div>
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                tab3
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                tab4
+                </div>
+                </div>
+                </div>
+                 
+
+
+
+            </div>
+                
+            </div>
+
+     
+            <div class="col-md-4" style="padding-left: 20px;">
+               
+            <div class="card border-success" style="width: 24rem;">
+        
+         <img src="{{ url_for('static', filename='/img/' + asset.picture_path) }}" alt="Photo 2" class="img-responsive border border-success" width="384px" height="288px">
+            
+                <div class="ribbon-wrapper ribbon-xl">
+                    <div class="ribbon bg-success text-lg">
+                       DEPLOYED
+                    </div>
+                 </div>
+
+                 <div class="card-body">
+                    <h2>Deployed by:</h2>
+                    <br>
+                    <br>
+                   <p>
+                        <!-- Only users have avatars currently-->
+                        <img src="/static/dist/img/sansan2.jpg" class="user-image-inline" width="50" height="50">
+                        <i class="fas fa-user" aria-hidden="true"></i> <a href="https://demo.snipeitapp.com/users/39">{{ current_user.username }}</a>
+                    </p>
+
+                    <ul class="list-unstyled" style="line-height: 25px;">
+                        <li>
+                            <i class="far fa-envelope" aria-hidden="true"></i>
+                            <a href="mailto:rashawn74@example.org"> rashawn74@example.org</a>
+                            </li>
+
+                          <li>
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <a href="tel:754-539-1933"> 754-539-1933</a>
+                            </li>
+
+                     </ul>
+                  </div>
+          
+          
+            </div>
+
+</div>
+     
+            </div>
+        </div>
+    
+            <!-- /.col -->
+            <!-- /.row -->
+{% endblock %}

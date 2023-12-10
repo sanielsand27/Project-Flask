@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}
+User List
+{% endblock %}
+{% block content %}
+    <div class="content-header">
+      <div class="container-fluid">
+          <div class="row mb-2">
+              <div class="col-sm-6">
+                  <h1 class="m-0">Computer List</h1>
+              </div>
+              <!-- /.col -->
+              <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="/">Home</a></li>
+                      <li class="breadcrumb-item active">Computer List</li>
+                  </ol>
+              </div>
+              <!-- /.col -->
+          </div>
+          <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+      <div class="row  justify-content-md-center">
+          <!-- TABLE: LATEST ORDERS -->
+          <div class="card">
+              <div class="card-header border-transparent">
+                  <h3 class="card-title">Computer List</h3>
+                  <div class="card-tools">
+                      <button type="button" class="btn btn-success">
+                      Add New Computer
+                      </button>
+                  </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                  <div class="table table-hover table-dark">
+                      <table class="table m-0">
+                          <thead>
+                              <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Name</th>                             
+                                  <th scope="col">Email</th>
+                                  <th scope="col">Buget</th>
+                            
+                                  <th scope="col">Options</th>
+                                 
+                                 
+                                  
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for user in users %}
+                              {% include 'includes/users_modals.html' %}
+                              <tr>
+                                  <td>{{ user.id }}</td>
+                                  <td>{{ user.username }}</td>
+                                  <td>{{ user.email_address }}</td>
+                                  <td>{{ user.budget }}$</td>
+                                  
+                                  <td>
+
+                                    <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ user.id }}">More Info</button>
+                                      
+                                
+                                      <a href="https://demo.snipeitapp.com/models/1/edit" class="btn btn-sm btn-warning" data-tooltip="true" title="Update">
+                                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                        <span class="sr-only">Update</span>
+                                      </a>
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+                  <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+            
+              <!-- /.card-footer -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      {% endblock %}

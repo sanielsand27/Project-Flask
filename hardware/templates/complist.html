@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}
+Computer List
+{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+     {% for category, message in messages %}
+       <div class="alert alert-{{ category }}">
+           <button type="button" class="m1-2 mb-1 close" data-dismiss="alert" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+          {{ message }}
+           </div>
+         {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Computer List</h1>
+</div>
+
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+			  data-bs-whatever="@mdo">+ Add Computer</button>
+    <div class="content-header">
+      <div class="container-fluid">
+        
+          <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+      <div class="card">
+          <!-- TABLE: LATEST ORDERS -->
+          <div class="card">
+              <div class="card-header border-transparent">
+                  <h3 class="card-title">Computer List</h3>
+                 
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                  <div class="table table-hover table-dark" >
+                      <table class="table m-0">
+                          <thead>
+                              <tr>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">Asset Name</th>                             
+                                  <th scope="col">Device Image</th>
+                                  <th scope="col">Computer Name</th>
+                                  <th scope="col">MAC Address</th>
+                                  <th scope="col">Category</th>
+                                  <th scope="col">Status</th>
+                                  
+                                  
+                                  <th scope="col">Options</th>
+                                 
+                                 
+                                  
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for item in items %}
+                              {% include 'includes/items_modals.html' %}
+                              <tr>
+                                  <td>{{ item.id }}</td>
+                                  <td>{{ item.name }}</td>
+                                  <td>{{ item.barcode }}</td>
+                                  <td>${{ item.price }}</td>
+                                  <td>{{ item.description }}</td>
+                                  <td>{{ item.description }}</td>
+                       
+                                  <td>{{ item.owned_user.username }}</td>
+                                  
+                                  <td>
+
+                                 
+
+
+                                    <a class="btn btn-sm btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        <span class="sr-only">Update</span>
+                                      </a>
+                                
+                                      <a href="https://demo.snipeitapp.com/models/1/edit" class="btn btn-sm btn-warning" data-tooltip="true" title="Update">
+                                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                        <span class="sr-only">Update</span>
+                                      </a>
+
+                                      <a href="/delete/{{ item.id }}" class="btn btn-sm btn-danger" data-tooltip="true" title="Delete">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        <span class="sr-only">Delete</span>
+                                        
+                                      </a>
+
+
+                                  </td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                  </div>
+                  <!-- /.table-responsive -->
+              </div>
+              <!-- /.card-body -->
+            
+              <!-- /.card-footer -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      {% endblock %}

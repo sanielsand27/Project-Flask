@@ -1,0 +1,25 @@
+.my-select {
+    width: 200px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+.my-select option {
+    background-color: #5ee735;
+    font-size: 16px;
+    padding: 12px;
+}
+
+.my-select option:hover {
+    background-color: #d66161;
+}
+
+.my-select option:active {
+    background-color: #4CAF50;
+    color: white;
+}

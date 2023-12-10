@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% block title %}
+License List
+{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+
+.form-group {
+
+    padding-left: 10%;
+}
+
+.form-control-center {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+  
+</style>
+
+{{ toastr.message() }}
+
+   <!-- Add License Modal -->
+   <div class="modal fade" id="formModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form method="post" action="{{ url_for('submit_form') }}" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h4 class="modal-title">New License</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                  <div class="form-group row">
+                    <label for="inputSoftwareName" class="col-sm-3 col-form-label">Software Name</label>
+                    <div class="col-sm-6">
+                    <input type="text" class="form-control" id="inputName" name="inputName" required>
+                </div>
+              </div>
+
+                 
+                  <div class="form-group row">
+                  <label for="seats" class="col-sm-3  control-label">Seats</label>
+                    
+                      <div class="col-sm-3">
+                            <input class="form-control" type="text" name="seats" id="seats" value="" />
+                 
+                      </div>
+                    
+                  </div>
+
+                    <div class="form-group row">
+                        <label for="inputDate" class="col-sm-3 col-form-label">Start Date</label>
+                        <div class="col-sm-3">
+                        <input type="date" class="form-control" id="inputDate" name="inputDate" required>
+                    </div>
+                  </div>
+
+                    <div class="form-group row">
+                      <label for="serial" class="col-sm-3 col-form-label">Product Key</label>
+                      <div class="col-sm-5">
+                          <textarea class="form-control" type="text" name="serial" id="serial"></textarea>
+                      </div>
+
+
+                      
+                  </div>
+                    <div class="form-group row">
+                    <label for="year_subscription" class="col-sm-3 col-form-label">Subscription:</label>
+                    <div class="col-sm-5">
+                    <input type="number" class="form-control" id="year_subscription" name="year_subscription">
+                  </div>
+                </div>
+
+
+                    <div class="form-group row">
+                        <label for="inputPicture" class="col-sm-3 col-form-label">Picture</label>
+                        <div class="col-sm-5">
+                      <input type="file" class="form-control-file" id="inputPicture" name="inputPicture" autocomplete="off" required onchange="loadFile(event)" accept="image/*">
+           
+                      </div>
+                    </div>
+                          <div class="form-group row">
+                            <label for="inputPicture" class="col-sm-3 col-form-label"></label>
+                            <div class="col-sm-5">
+                            <img id="output" width="200"/>
+
+                            </div>
+                          </div>
+                </div>
+           
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+            
+
+
+        </div>
+    </div>
+</div>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">License Data</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">License Data</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+
+<div class="card">
+  <div class="card-header">
+
+   
+  
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#formModal">
+      + Add License
+    </button>
+  </div>
+  
+  <div class="card-body">
+  <table id="example1" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            
+            <th>Picture</th>
+            
+            <th>Name</th>                             
+            <th>Start Date</th>
+            <th>Year Subscription</th>
+            <th>Expiration Date</th>
+            
+            <th>Options</th>
+
+        </tr>
+    </thead>
+    <tbody>
+    {% for option in options %}
+    
+    <tr>
+        
+        <td><img src="{{ url_for('static', filename='/img/' + option.picture_path) }}" width="50" height="50"></td>
+       
+        <td>{{ option.name }}</td>
+        <td>{{ option.date.strftime('%A, %B %d, %Y') }}</td>
+              
+        
+      
+          {% if option.year_subscription == 0 %}
+                 <td><span class="badge badge-warning">Perpetual</span></td>
+          {% else %}
+                 <td>{{option.year_subscription}}</td>
+           {% endif %}
+    
+    
+        
+        
+        <td><span class="badge badge-info">{{ option.expiration_date }}</span></td>
+
+        
+        <td>
+
+                                 
+
+          <a href="{{ url_for('asset', id=option.id) }}" class="btn btn-sm btn-primary">
+            <i class="fa fa-eye" aria-hidden="true"></i><span class="sr-only">View</span></a>
+           
+          </a>
+
+
+
+
+
+
+          <a href="https://demo.snipeitapp.com/licenses/2/edit" class="btn btn-sm btn-warning" data-tooltip="true" title="Update"><i class="fas fa-pencil-alt" aria-hidden="true"></i><span class="sr-only">Update</span></a>
+
+
+
+
+
+
+          <a href="/delete/{{ option.id }}" class="btn btn-sm btn-danger" data-tooltip="true" title="Delete">
+            <i class="fas fa-trash-alt" aria-hidden="true"></i><span class="sr-only">Delete</span></a>
+         
+          </a>
+         
+          
+
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+
+
+</table>
+</div>
+</div>
+
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) 
+    }
+  };
+</script>
+
+{% endblock %}
+
